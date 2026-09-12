@@ -1,0 +1,14 @@
+<template>
+   <div class="main-content">
+            <lightning-datatable
+            key-field="Id"
+            data={shifts}
+            columns={columns}
+            hide-checkbox-column=""
+            >    
+            </lightning-datatable>
+        <lightning-button 
+        label="Add Shift" onclick={addNewShift}>
+        </lightning-button>
+    </div>
+</template>

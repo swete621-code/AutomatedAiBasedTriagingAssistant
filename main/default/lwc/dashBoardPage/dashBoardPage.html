@@ -1,0 +1,42 @@
+<template>
+    <!--Active shift-->
+    <lightning-card>
+
+        <!--Header-->
+        <div class="header">
+            <!--left side-->
+            <div class="left-section">
+                <template if:true={activeShift}>
+                <h2>Active Shift:
+                    {activeShift.Name}
+                </h2>
+                <h2>Active Shift Timing:
+                    {activeShift.startTime} to {activeShift.endTime}
+                </h2>
+                </template>
+            </div>
+
+            <!--right side-->
+            <div class="right-section">
+                <lightning-button
+                label="Settings"
+                onclick={navigateToConfig}
+                >
+                </lightning-button>
+            </div>
+        </div>
+
+        <!--Main Content-->
+        <div class="main-content">
+            <lightning-datatable
+            key-field="Id"
+            data={cases}
+            columns={columns}
+            hide-checkbox-column=""
+            >    
+            </lightning-datatable>
+        </div>
+    
+
+    </lightning-card>
+</template>

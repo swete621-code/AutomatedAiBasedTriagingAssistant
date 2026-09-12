@@ -1,0 +1,38 @@
+<template>
+
+<div class="slds-p-around_medium">
+<lightning-input
+    type="time"
+    label="Select Start Time"
+    name="Start_Time__c"
+    value={Shift_Records.Start_Time__c}
+    onchange={handleChange}>
+</lightning-input>
+
+<lightning-input
+    type="time"
+    label="Select End Time"
+    name="End_Time__c"
+    value={Shift_Records.End_Time__c}
+    onchange={handleChange}>
+</lightning-input>
+
+<lightning-input
+    label="Shift Name"
+    name="Name"
+    value={Shift_Records.Name}
+    onchange={handleChange}>
+</lightning-input>
+      
+<lightning-button 
+       label="Save Shift"
+       onclick={addShift}>
+</lightning-button>
+
+<lightning-button 
+       label="Delete Shift"
+       onclick={removeShift}>
+</lightning-button>
+</div>
+
+</template>
