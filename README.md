@@ -142,11 +142,11 @@ The project follows **Salesforce security and integration best practices**:
 - **No hard-coded API secrets**
 - **Dedicated integration authentication**
 
-```
+
 
 ### 🌐 Experience Cloud
 
-```markdown
+markdown
 ## 🌐 Experience Cloud
 
 The application is exposed through a **Salesforce Experience Cloud site**.
