@@ -1,48 +1,42 @@
 Automated AI-Based Case Triaging & Assignment Assistant
 🚀 Overview
 
-Automated AI-Based Case Triaging & Assignment Assistant is a Salesforce-based intelligent support platform built with the following design principle:
+Automated AI-Based Case Triaging & Assignment Assistant is a Salesforce-based intelligent support platform that automates case classification, skill-based routing, shift-aware assignment, and operational notifications.
 
-Case
-  ↓
-Salesforce + Claude
-  ↓
-Skill + Complexity Triage
-  ↓
-Active Shift Members
-  ↓
-Eligible Members Found?
-  ├── YES → Persistent Round-Robin → Assign Case
-  │
-  └── NO → Salesforce Notification
-             +
-           Microsoft Teams Notification
-             ↓
-        Support Admin
-             ↓
-        Manual Monitoring
+The system combines Salesforce automation, Claude AI, Queueable Apex, persistent round-robin assignment, and Microsoft Teams integration to streamline the case assignment process.
+
+🔄 Solution Architecture
+Assignment Flow
+Case Created — A new Case enters the Salesforce system.
+Queueable Apex — The classification and routing process executes asynchronously.
+Claude AI Classification — Claude analyzes the Case and determines the required:
+Skill
+Complexity
+Confidence
+Active Shift Members — Salesforce identifies members currently available in the active shift.
+Eligibility Check — Salesforce determines whether members matching the required skill and routing criteria are available.
+Persistent Round-Robin Assignment — If eligible members are available, Salesforce assigns the Case using persistent round-robin logic.
+Fallback Handling — If no eligible member is available:
+Salesforce generates a notification.
+Microsoft Teams sends a notification to the Support Admin.
+The Support Admin manually monitors and handles the Case.
 ✨ Key Features
-
-Skill & Complexity-Based Routing — Uses Claude to intelligently classify each support case based on the required skill and complexity, with Salesforce responsible for the subsequent routing decision.
-
-Asynchronous AI Classification & Routing — The complete classification and assignment workflow is executed asynchronously using Queueable Apex. This allows Salesforce to perform the external Claude callout, process the AI response, identify eligible Shift Members, and execute the round-robin assignment without blocking the original Case transaction.
-
-Round-Robin Assignment — Salesforce automatically assigns eligible cases to available Shift Members using a persistent round-robin mechanism, ensuring fair and continuous distribution of cases across eligible members.
-
-No-Member Fallback Handling — If no eligible Shift Members are found in the active shift, the case is not incorrectly assigned. Instead, the system triggers a fallback process for manual intervention by the Support Admin.
-
-Salesforce + Microsoft Teams Notifications — When a case cannot be automatically assigned, the Support Admin is notified through Salesforce and Microsoft Teams integration, allowing the admin to manually monitor and take action.
-
-Secure Integration Architecture — External integrations follow Salesforce best practices using Named Credentials, External Credentials, and Named Principal authentication rather than hard-coding credentials in Apex.
-
-Salesforce → Claude: Uses API Key authentication, securely managed through Salesforce Named Credentials and External Credentials.
-Salesforce → Microsoft Teams: Uses OAuth 2.0 Client Credentials flow with Client Secret authentication, managed through Salesforce Named Credentials and External Credentials.
-Authentication credentials are kept outside Apex code to improve security, maintainability, and centralized credential management.
-
-Data Modeling & Relationships — Implements a structured Salesforce data model using One-to-One, One-to-Many, and Many-to-Many relationships to represent business entities such as Shifts, Shift Members, Skills, Designations, and their associations. Junction objects are used where required to support Many-to-Many relationships, enabling flexible and scalable case-routing logic.
-
-Operations Dashboard — The custom Lightning Web Component dashboard provides visibility into:
-
+Skill & Complexity-Based Routing — Uses Claude AI to classify each support Case based on the required skill and complexity, while Salesforce remains responsible for the routing decision.
+Asynchronous AI Classification & Routing — The complete classification and assignment workflow is executed asynchronously using Queueable Apex, including the Claude callout, AI response processing, eligible Shift Member identification, and round-robin assignment.
+Persistent Round-Robin Assignment — Automatically distributes Cases fairly among eligible Shift Members while maintaining routing state across transactions.
+Shift-Aware Assignment — Considers the active shift and available Shift Members before assigning a Case.
+No-Member Fallback Handling — Prevents incorrect assignment when no eligible Shift Member is available and initiates a fallback process for Support Admin intervention.
+Salesforce + Microsoft Teams Notifications — Notifies the Support Admin through Salesforce and Microsoft Teams when automatic assignment cannot be completed.
+Secure Integration Architecture — Uses Named Credentials, External Credentials, and Named Principal authentication instead of hard-coded credentials.
+Salesforce → Claude: API Key authentication.
+Salesforce → Microsoft Teams: OAuth 2.0 Client Credentials flow with Client Secret authentication.
+Authentication credentials remain outside Apex code for improved security, maintainability, and centralized credential management.
+Data Modeling & Relationships — Implements a structured Salesforce data model using:
+One-to-One relationships
+One-to-Many relationships
+Many-to-Many relationships
+Junction objects for Many-to-Many associations between entities such as Skills and Shift Members.
+Operations Dashboard — Provides operational visibility through a custom Lightning Web Component built with Lightning Design System (SLDS), including:
 Active Shift
 Shift Timing
 Cases
@@ -54,9 +48,6 @@ Description
 Active Shift Members
 Skills
 Designations
-
-The UI is built using Lightning Web Components and Salesforce Lightning Design System (SLDS).
-
 🔐 Security
 
 The project follows Salesforce security and integration best practices:
@@ -71,12 +62,17 @@ External Credentials
 No hard-coded API secrets
 Dedicated integration authentication
 📸 Screenshots
+Microsoft Teams Notification
 
-image image
+The Microsoft Teams integration provides Support Admins with notifications when a Case cannot be automatically assigned due to the absence of eligible Shift Members.
+
+Operations Dashboard
+
+The Operations Dashboard provides visibility into the active shift, shift timing, Cases, assignments, and active Shift Members with their associated skills and designations.
 
 🌐 Experience Cloud
 
-The application is exposed through a Salesforce Experience Cloud site.
+The application is exposed through a Salesforce Experience Cloud site, providing access to the Case Assignment Dashboard.
 
 🚀 Live Demo
 
@@ -87,27 +83,24 @@ Note: The demo runs on a Salesforce Developer/Org Farm environment, so availabil
 🧩 Salesforce Technology Stack
 Technology	Purpose
 Apex	Core business logic and integrations
-Apex REST	External API
-Queueable Apex	Asynchronous processing
-SOQL	Data retrieval and routing
-Lightning Web Components	Operations dashboard
+Apex REST	External Case creation API
+Queueable Apex	Asynchronous AI classification and routing
+SOQL	Data retrieval and routing logic
+Lightning Web Components	Operations Dashboard
 Salesforce Flow	Declarative automation
 Platform Events	Event-driven integration
 Change Data Capture	Record-change events
-Named Credentials	Secure callouts
-External Credentials	Authentication
-Microsoft Graph API	Teams notifications
+Named Credentials	Secure external callouts
+External Credentials	Authentication and credential management
+Microsoft Graph API	Microsoft Teams notifications
 External AI API	Case classification
 Experience Cloud	Customer/public-facing experience
-Custom Objects / Metadata	Shift, skills and routing configuration
+Custom Objects / Metadata	Shift, skill, designation, and routing configuration
 Git / GitHub	Version control
 GitHub Actions	CI/CD
-
 🧪 CI/CD & Source Control
 
 The project is maintained using Git and GitHub, with CI/CD automation through GitHub Actions.
-
-Recommended workflow:
 
 Feature Branch
       ↓
@@ -122,7 +115,6 @@ Apex Tests
 Merge
       ↓
 Deployment
-
 🛠️ Getting Started
 Prerequisites
 Salesforce CLI
@@ -140,13 +132,12 @@ Set Target Org
 sf config set target-org=YOUR_ORG_ALIAS
 Deploy Salesforce Source
 sf project deploy start --source-dir force-app --target-org YOUR_ORG_ALIAS
-
 📌 Future Enhancements
 ⏱️ SLA countdown and breach monitoring
 📊 Advanced agent workload balancing
 🤖 AI confidence-based human review
-🌐 Customer-facing case creation portal
-🔎 Customer case status tracking
+🌐 Customer-facing Case creation portal
+🔎 Customer Case status tracking
 🔁 Retry and failure handling for external APIs
 📈 Advanced operational analytics
 🚀 Automated CI/CD deployment gates
