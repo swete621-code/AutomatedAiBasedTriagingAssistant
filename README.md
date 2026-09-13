@@ -163,10 +163,10 @@ The application is exposed through a **Salesforce Experience Cloud site**.
 
 The Microsoft Teams integration notifies the Support Admin when a Case cannot be automatically assigned because no eligible Shift Member is available.
 
-![Microsoft Teams Notification](./assets/teams-notification.png)
+<img width="1436" height="1063" alt="teams-notification" src="https://github.com/user-attachments/assets/a8e9a422-c46b-469d-bf37-60b4fa9d985d" />
 
 ### Operations Dashboard
 
 The Operations Dashboard provides visibility into the active shift, shift timing, Cases, assignments, and active Shift Members with their associated skills and designations.
+<img width="1902" height="688" alt="dashboard" src="https://github.com/user-attachments/assets/5fc33757-3152-4eeb-aae2-80f0e43a1c3f" />
 
-![Case Assignment Dashboard](./assets/dashboard.png)
